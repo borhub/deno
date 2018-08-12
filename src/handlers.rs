@@ -14,10 +14,10 @@ use msg_generated::deno as msg;
 use std::ffi::CStr;
 use std::path::Path;
 
-use tokio::prelude::future;
 use hyper;
-use hyper::Client;
 use hyper::rt::{self, Future, Stream};
+use hyper::Client;
+use tokio::prelude::future;
 
 // Help. Is there a way to do this without macros?
 // Want: fn str_from_ptr(*const c_char) -> &str
@@ -178,7 +178,7 @@ fn fetch_url(
   cmd_id: u32,
   id: u32,
   url_: *const c_char,
-) -> impl Future<Item=(), Error=()> {
+) -> impl Future<Item = (), Error = ()> {
   let url = str_from_ptr!(url_).parse::<hyper::Uri>().unwrap();
   let client = Client::new();
 
@@ -217,8 +217,7 @@ fn fetch_url(
       //     // );
       //   });
     })
-    .map_err(|err| {
-    })
+    .map_err(|err| {})
 }
 
 fn set_timeout<F>(
